@@ -2,9 +2,12 @@ import express from "express";
 import mongoose from "mongoose";
 import productRouter from "./routers/productRouter.js";
 import userRouter from "./routers/userRouter.js";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 mongoose.connect(
   "mongodb+srv://yasin:cimbom21@cluster0.f8enl.mongodb.net/test?authSource=admin&replicaSet=atlas-abz77t-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true",
   {
@@ -13,7 +16,6 @@ mongoose.connect(
     useCreateIndex: true,
   }
 );
-
 
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
